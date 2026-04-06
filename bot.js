@@ -1,5 +1,5 @@
 // ============================================
-// xROCKET FLOW - BOT PROFISSIONAL
+// xROCKET FLOW BOT PROFISSIONAL
 // Com SUAS variáveis
 // ============================================
 
