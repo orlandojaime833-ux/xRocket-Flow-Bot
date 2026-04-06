@@ -1,0 +1,43 @@
+# ============================================
+# ARQUIVOS QUE NÃO DEVEM IR PARA O GITHUB
+# ============================================
+
+# Dependências
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Variáveis de ambiente (segredos!)
+.env
+.env.local
+.env.production
+.env.*.local
+
+# IDE e Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Build e temp
+dist/
+build/
+tmp/
+temp/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos de backup
+*.bak
+*.old
+*.orig
