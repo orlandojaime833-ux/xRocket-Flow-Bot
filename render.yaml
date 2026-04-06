@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: xrocket-flow-2030
+    runtime: node
+    repo: https://github.com/orlandojamie833-ux/xRocket-Flow-2030
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: BOT_TOKEN
+        value: 8642593414:AAFjKWsd9za1jIeHLpDlVfobyca1SiaAhGM
+      - key: ADMIN_ID
+        value: 7991785009
+      - key: XROCKET_API
+        value: c01709a9c058bd25eeefea6b2
+      - key: GEMINI_API_KEY
+        value: AIzaSyBbFcGJYvNN-b-i2tlkiZrY7jZ_pjEij4A
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
