@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#f97316">
+    <title>xROCKET FLOW 2030 - Sua Loja Profissional no Telegram</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+            padding: 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header Premium */
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 24px 20px;
+            background: linear-gradient(135deg, #f97316, #ff8c3a);
+            border-radius: 28px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(249,115,22,0.3);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .badge-premium {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--tg-theme-secondary-bg-color, #f8f9fa);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 3px solid #f97316;
+            padding-left: 12px;
+        }
+
+        /* Produtos Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .product-card {
+            background: var(--tg-theme-bg-color, #ffffff);
+            border-radius: 16px;
+            padding: 14px;
+            border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: #f97316;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .product-name {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            color: #f97316;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin: 8px 0;
+        }
+
+        .product-description {
+            font-size: 0.75rem;
+            color: var(--tg-theme-hint-color, #666);
+            margin: 8px 0;
+            line-height: 1.3;
+        }
+
+        .product-btn {
+            background: #f97316;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        /* Botões */
+        .btn-primary {
+            background: linear-gradient(135deg, #f97316, #ff8c3a);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: var(--tg-theme-secondary-bg-color, #e0e0e0);
+            color: var(--tg-theme-text-color, #000);
+            border: none;
+            padding: 10px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* Navegação Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            background: var(--tg-theme-secondary-bg-color, #f0f0f0);
+            padding: 6px;
+            border-radius: 50px;
+        }
+
+        .nav-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px 12px;
+            background: transparent;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .nav-tab.active {
+            background: #f97316;
+            color: white;
+        }
+
+        /* Formulários */
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 8px 0;
+            background: var(--tg-theme-bg-color, #ffffff);
+            border: 1px solid var(--tg-theme-hint-color, #ccc);
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #f97316;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Carrinho */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--tg-theme-hint-color, #eee);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .total {
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-align: right;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px solid #f97316;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f0f0f0;
+            border-top-color: #f97316;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--tg-theme-bg-color, #fff);
+            border-radius: 24px;
+            padding: 24px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Informações do plano */
+        .plan-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .plan-free { background: #10b981; color: white; }
+        .plan-pro { background: #3b82f6; color: white; }
+        .plan-vip { background: #f97316; color: white; }
+
+        /* Lista de produtos admin */
+        .admin-product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--tg-theme-hint-color, #eee);
+        }
+
+        .admin-product-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--tg-theme-hint-color, #666);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚀 xROCKET FLOW</h1>
+            <p>A loja mais avançada do Telegram</p>
+            <div class="badge-premium">🤖 IA Gemini • 💳 Cripto • 🎨 Personalizável</div>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Carregando sua loja...</p>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div id="content" class="hidden">
+            <!-- Navegação Tabs -->
+            <div class="nav-tabs">
+                <div class="nav-tab active" data-tab="loja">🛍️ LOJA</div>
+                <div class="nav-tab" data-tab="admin">⚙️ ADMIN</div>
+                <div class="nav-tab" data-tab="carrinho">🛒 CARRINHO <span id="cartCount" style="background:#f97316; color:white; padding:0px 6px; border-radius:12px; margin-left:4px;">0</span></div>
+            </div>
+
+            <!-- Aba LOJA (Vitrine) -->
+            <div id="tab-loja" class="tab-content">
+                <div id="catalogo"></div>
+            </div>
+
+            <!-- Aba ADMIN (Painel do Lojista) -->
+            <div id="tab-admin" class="tab-content hidden">
+                <div class="card">
+                    <h2>🏪 Minha Loja</h2>
+                    <div id="storeInfo"></div>
+                </div>
+
+                <div class="card">
+                    <h2>📦 Produtos</h2>
+                    <div id="produtosList"></div>
+                    <button class="btn-primary" id="btnAddProduto" style="margin-top: 16px;">➕ Adicionar Produto</button>
+                </div>
+
+                <div class="card">
+                    <h2>🎨 Personalizar Loja</h2>
+                    <label>Template:</label>
+                    <select id="templateSelect">
+                        <option value="moderno">🎨 Moderno</option>
+                        <option value="classico">📱 Clássico</option>
+                        <option value="dark">🌙 Dark Mode</option>
+                        <option value="natureza">🌿 Natureza</option>
+                        <option value="luxo">👑 Luxo</option>
+                    </select>
+                    <label style="margin-top: 12px;">Cor principal:</label>
+                    <input type="color" id="primaryColor" value="#f97316">
+                    <label style="margin-top: 12px;">Cor de fundo:</label>
+                    <input type="color" id="bgColor" value="#ffffff">
+                    <button class="btn-primary" id="btnSalvarPersonalizacao" style="margin-top: 16px;">💾 Salvar Personalização</button>
+                </div>
+
+                <div class="card">
+                    <h2>💎 Meu Plano</h2>
+                    <div id="planoInfo"></div>
+                    <button class="btn-primary" id="btnUpgrade" style="margin-top: 16px;">⬆️ Fazer Upgrade</button>
+                </div>
+
+                <div class="card">
+                    <h2>🔗 Compartilhar Loja</h2>
+                    <p style="margin-bottom: 12px;">Compartilhe o link abaixo com seus clientes:</p>
+                    <input type="text" id="storeLink" readonly style="background: #f0f0f0; margin-bottom: 12px;">
+                    <button class="btn-primary" id="btnCopiarLink">📋 Copiar Link</button>
+                </div>
+            </div>
+
+            <!-- Aba CARRINHO -->
+            <div id="tab-carrinho" class="tab-content hidden">
+                <div id="cartItems"></div>
+                <div id="cartTotal" class="total"></div>
+                <button class="btn-primary" id="btnFinalizar" style="margin-top: 16px;">✅ Finalizar Compra</button>
+                <button class="btn-secondary" id="btnLimparCarrinho" style="margin-top: 8px; width: 100%;">🗑️ Limpar Carrinho</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar Produto -->
+    <div id="modalProduto" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>➕ Novo Produto</h3>
+                <button class="close-modal" id="closeModalProduto">&times;</button>
+            </div>
+            <input type="text" id="prodNome" placeholder="Nome do produto *">
+            <input type="number" id="prodPreco" placeholder="Preço (USDT) *" step="0.01">
+            <textarea id="prodDesc" placeholder="Descrição do produto" rows="3"></textarea>
+            <select id="prodCategoria">
+                <option value="Geral">📦 Geral</option>
+                <option value="Cursos">📚 Cursos</option>
+                <option value="E-books">📘 E-books</option>
+                <option value="Serviços">⚙️ Serviços</option>
+                <option value="Produtos Físicos">📦 Produtos Físicos</option>
+            </select>
+            <button class="btn-primary" id="btnSalvarProduto" style="margin-top: 16px;">💾 Salvar Produto</button>
+            <button class="btn-secondary" id="btnCancelarProduto" style="margin-top: 8px;">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Modal Upgrade -->
+    <div id="modalUpgrade" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>💎 Upgrade de Plano</h3>
+                <button class="close-modal" id="closeModalUpgrade">&times;</button>
+            </div>
+            <div class="card" style="margin-bottom: 12px;">
+                <h3 style="font-size: 1rem;">⭐ Plano PRO - $5/mês</h3>
+                <p>✓ 100 produtos</p>
+                <p>✓ IA Vendedora</p>
+                <p>✓ 10 templates</p>
+                <p>✓ Cores personalizadas</p>
+                <p>✓ Upload de logo</p>
+                <button class="btn-primary" id="btnUpgradePro" style="margin-top: 12px;">Escolher PRO</button>
+            </div>
+            <div class="card">
+                <h3 style="font-size: 1rem;">👑 Plano VIP - $10/mês</h3>
+                <p>✓ Produtos ILIMITADOS</p>
+                <p>✓ IA Predictor</p>
+                <p>✓ Remoção da marca</p>
+                <p>✓ Webhook</p>
+                <p>✓ Todos os recursos</p>
+                <button class="btn-primary" id="btnUpgradeVip" style="margin-top: 12px;">Escolher VIP</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // xROCKET FLOW 2030 - MINI APP COMPLETO
+        // ============================================
+
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.ready();
+
+        // ============ ESTADO GLOBAL ============
+        let currentUser = null;
+        let isSeller = false;
+        let storeData = null;
+        let products = [];
+        let cart = [];
+
+        // Carregar carrinho do localStorage
+        try {
+            const savedCart = localStorage.getItem('xrocket_cart');
+            if (savedCart) cart = JSON.parse(savedCart);
+        } catch(e) { console.error(e); }
+
+        // ============ FUNÇÕES DE UTILIDADE ============
+        function saveCart() {
+            localStorage.setItem('xrocket_cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartCountSpan = document.getElementById('cartCount');
+            if (cartCountSpan) {
+                const totalItems = cart.reduce((s, i) => s + (i.quantity || 1), 0);
+                cartCountSpan.innerText = totalItems;
+            }
+            renderCart();
+        }
+
+        function showToast(message, type = 'success') {
+            tg.showPopup({ title: type === 'success' ? '✅' : '⚠️', message: message, buttons: [{ type: 'ok' }] });
+        }
+
+        // ============ FUNÇÕES DE RENDER ============
+
+        function renderCatalog() {
+            const container = document.getElementById('catalogo');
+            if (!container) return;
+
+            if (!products || products.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>📦 Nenhum produto disponível</p>
+                        <p style="font-size: 0.8rem; margin-top: 8px;">Volte em breve!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<div class="product-grid">';
+            for (const p of products) {
+                const safeName = p.name?.replace(/'/g, "\\'") || '';
+                const safeId = p.id || '';
+                html += `
+                    <div class="product-card">
+                        <div class="product-name">${escapeHtml(p.name || 'Produto')}</div>
+                        <div class="product-price">$${parseFloat(p.price || 0).toFixed(2)}</div>
+                        <div class="product-description">${escapeHtml((p.description || '').substring(0, 80))}</div>
+                        <button class="product-btn" onclick="addToCart('${safeId}', '${safeName}', ${parseFloat(p.price || 0)})">➕ Comprar</button>
+                    </div>
+                `;
+            }
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function renderAdminProducts() {
+            const container = document.getElementById('produtosList');
+            if (!container) return;
+
+            if (!products || products.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>📦 Nenhum produto cadastrado</p><p style="font-size: 0.8rem;">Clique em "Adicionar Produto" para começar</p></div>';
+                return;
+            }
+
+            let html = '';
+            for (let i = 0; i < products.length; i++) {
+                const p = products[i];
+                html += `
+                    <div class="admin-product-item">
+                        <div>
+                            <strong>${escapeHtml(p.name || '')}</strong><br>
+                            <small>$${parseFloat(p.price || 0).toFixed(2)}</small>
+                        </div>
+                        <button class="btn-danger" onclick="deleteProduct(${i})">🗑️ Remover</button>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            const totalContainer = document.getElementById('cartTotal');
+            if (!container || !totalContainer) return;
+
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>🛒 Carrinho vazio</p><p style="font-size: 0.8rem;">Adicione produtos da loja</p></div>';
+                totalContainer.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+            for (let i = 0; i < cart.length; i++) {
+                const item = cart[i];
+                const quantity = item.quantity || 1;
+                const subtotal = item.price * quantity;
+                total += subtotal;
+                html += `
+                    <div class="cart-item">
+                        <div>
+                            <strong>${escapeHtml(item.name)}</strong><br>
+                            $${item.price.toFixed(2)} x ${quantity} = $${subtotal.toFixed(2)}
+                        </div>
+                        <div>
+                            <button class="btn-secondary" onclick="removeFromCart(${i})" style="padding: 6px 12px;">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+            totalContainer.innerHTML = `💰 TOTAL: $${total.toFixed(2)} USDT`;
+        }
+
+        function renderStoreInfo() {
+            const container = document.getElementById('storeInfo');
+            if (!container || !storeData) return;
+
+            container.innerHTML = `
+                <p><strong>🏪 ID:</strong> ${escapeHtml(storeData.storeId || 'N/A')}</p>
+                <p><strong>📊 Plano:</strong> <span class="plan-badge plan-${(storeData.plan || 'free').toLowerCase()}">${storeData.plan || 'FREE'}</span></p>
+                <p><strong>📦 Produtos:</strong> ${products.length} / ${storeData.productsLimit === Infinity ? '∞' : storeData.productsLimit || 10}</p>
+                <p><strong>💰 Comissão:</strong> ${storeData.commission || 10}% por venda</p>
+                ${storeData.firstMonthFree ? '<p><strong>🎁 Primeiro mês GRÁTIS!</strong> Comissão 0%</p>' : ''}
+            `;
+        }
+
+        function renderPlanoInfo() {
+            const container = document.getElementById('planoInfo');
+            if (!container || !storeData) return;
+
+            container.innerHTML = `
+                <p><strong>Plano atual:</strong> ${storeData.plan || 'FREE'}</p>
+                <p><strong>Comissão:</strong> ${storeData.commission || 10}%</p>
+                <p><strong>Produtos:</strong> ${products.length} / ${storeData.productsLimit === Infinity ? '∞' : storeData.productsLimit || 10}</p>
+                ${storeData.plan === 'FREE' ? '<p style="margin-top: 12px; color: #f97316;">⬆️ Faça upgrade para PRO ou VIP e aumente seus limites!</p>' : ''}
+            `;
+        }
+
+        // ============ FUNÇÕES DE AÇÃO ============
+
+        window.addToCart = function(productId, productName, productPrice) {
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity = (existing.quantity || 1) + 1;
+            } else {
+                cart.push({ id: productId, name: productName, price: productPrice, quantity: 1 });
+            }
+            saveCart();
+            showToast(`${productName} adicionado ao carrinho!`);
+        };
+
+        window.removeFromCart = function(index) {
+            cart.splice(index, 1);
+            saveCart();
+            showToast('Item removido do carrinho');
+        };
+
+        window.deleteProduct = function(index) {
+            if (confirm('Remover este produto permanentemente?')) {
+                products.splice(index, 1);
+                renderCatalog();
+                renderAdminProducts();
+                renderStoreInfo();
+                showToast('Produto removido');
+            }
+        };
+
+        function finalizarCompra() {
+            if (cart.length === 0) {
+                showToast('Carrinho vazio!', 'error');
+                return;
+            }
+
+            const total = cart.reduce((s, i) => s + (i.price * (i.quantity || 1)), 0);
+            
+            tg.showPopup({
+                title: '💳 Finalizar Compra',
+                message: `Total: $${total.toFixed(2)} USDT\n\nDeseja confirmar o pedido?`,
+                buttons: [
+                    { id: 'confirm', type: 'default', text: '✅ Confirmar' },
+                    { id: 'cancel', type: 'cancel', text: '❌ Cancelar' }
+                ]
+            }, (buttonId) => {
+                if (buttonId === 'confirm') {
+                    showToast('Pedido realizado! Aguarde confirmação de pagamento.');
+                    cart = [];
+                    saveCart();
+                }
+            });
+        }
+
+        function copiarLink() {
+            const linkInput = document.getElementById('storeLink');
+            if (linkInput) {
+                linkInput.select();
+                document.execCommand('copy');
+                showToast('Link copiado! Compartilhe com seus clientes.');
+            }
+        }
+
+        // ============ NAVEGAÇÃO ============
+        function setupNavigation() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.getAttribute('data-tab');
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    contents.forEach(c => c.classList.add('hidden'));
+                    document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+                });
+            });
+        }
+
+        // ============ INICIALIZAÇÃO ============
+        async function init() {
+            setupNavigation();
+            
+            // Simular dados da loja (em produção, carregar da API)
+            const urlParams = new URLSearchParams(window.location.search);
+            const storeId = urlParams.get('start');
+            
+            // Simular carregamento
+            setTimeout(() => {
+                if (storeId) {
+                    isSeller = true;
+                    storeData = {
+                        storeId: storeId,
+                        plan: 'FREE',
+                        productsLimit: 10,
+                        commission: 10,
+                        firstMonthFree: true,
+                        template: 'moderno',
+                        primaryColor: '#f97316',
+                        bgColor: '#ffffff'
+                    };
+                    products = [
+                        { id: '1', name: 'Produto Exemplo', price: 49.90, description: 'Este é um produto exemplo da sua loja' },
+                        { id: '2', name: 'Outro Produto', price: 29.90, description: 'Descrição do segundo produto' }
+                    ];
+                } else {
+                    isSeller = false;
+                    storeData = null;
+                    products = [
+                        { id: '1', name: 'Curso JavaScript', price: 197, description: 'Aprenda JS do zero ao avançado' },
+                        { id: '2', name: 'Ebook Marketing', price: 49, description: 'Estratégias para vender mais' }
+                    ];
+                }
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').classList.remove('hidden');
+                
+                renderCatalog();
+                if (isSeller) {
+                    renderAdminProducts();
+                    renderStoreInfo();
+                    renderPlanoInfo();
+                    document.getElementById('storeLink').value = `https://t.me/xRocketFlow_Bot?start=${storeData.storeId}`;
+                }
+                renderCart();
+                updateCartUI();
+            }, 500);
+        }
+
+        // ============ EVENT LISTENERS ============
+        document.getElementById('btnFinalizar')?.addEventListener('click', finalizarCompra);
+        document.getElementById('btnLimparCarrinho')?.addEventListener('click', () => {
+            cart = [];
+            saveCart();
+            showToast('Carrinho limpo');
+        });
+        
+        document.getElementById('btnAddProduto')?.addEventListener('click', () => {
+            document.getElementById('modalProduto').style.display = 'flex';
+        });
+        
+        document.getElementById('closeModalProduto')?.addEventListener('click', () => {
+            document.getElementById('modalProduto').style.display = 'none';
+        });
+        
+        document.getElementById('btnCancelarProduto')?.addEventListener('click', () => {
+            document.getElementById('modalProduto').style.display = 'none';
+        });
+        
+        document.getElementById('btnSalvarProduto')?.addEventListener('click', () => {
+            const nome = document.getElementById('prodNome').value.trim();
+            const preco = parseFloat(document.getElementById('prodPreco').value);
+            const desc = document.getElementById('prodDesc').value;
+            const categoria = document.getElementById('prodCategoria').value;
+            
+            if (!nome || isNaN(preco)) {
+                showToast('Preencha nome e preço corretamente', 'error');
+                return;
+            }
+            
+            products.push({
+                id: Date.now().toString(),
+                name: nome,
+                price: preco,
+                description: desc || 'Produto de alta qualidade',
+                category: categoria
+            });
+            
+            renderCatalog();
+            renderAdminProducts();
+            renderStoreInfo();
+            
+            document.getElementById('prodNome').value = '';
+            document.getElementById('prodPreco').value = '';
+            document.getElementById('prodDesc').value = '';
+            document.getElementById('modalProduto').style.display = 'none';
+            
+            showToast('Produto adicionado com sucesso!');
+        });
+        
+        document.getElementById('btnUpgrade')?.addEventListener('click', () => {
+            document.getElementById('modalUpgrade').style.display = 'flex';
+        });
+        
+        document.getElementById('closeModalUpgrade')?.addEventListener('click', () => {
+            document.getElementById('modalUpgrade').style.display = 'none';
+        });
+        
+        document.getElementById('btnUpgradePro')?.addEventListener('click', () => {
+            document.getElementById('modalUpgrade').style.display = 'none';
+            showToast('Em breve! Faça o pagamento via xRocket.');
+        });
+        
+        document.getElementById('btnUpgradeVip')?.addEventListener('click', () => {
+            document.getElementById('modalUpgrade').style.display = 'none';
+            showToast('Em breve! Faça o pagamento via xRocket.');
+        });
+        
+        document.getElementById('btnSalvarPersonalizacao')?.addEventListener('click', () => {
+            const primaryColor = document.getElementById('primaryColor').value;
+            const bgColor = document.getElementById('bgColor').value;
+            document.documentElement.style.setProperty('--tg-theme-bg-color', bgColor);
+            showToast('Personalização salva!');
+        });
+        
+        document.getElementById('btnCopiarLink')?.addEventListener('click', copiarLink);
+        
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        init();
+    </script>
+</body>
+</html>
